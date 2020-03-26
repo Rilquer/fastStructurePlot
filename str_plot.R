@@ -1,6 +1,8 @@
 str_plot=function (x,samples=NA,order=NA){
-  library(ggplot2)
-  q=read.table(x,sep='')
+  if (!require('ggplot2')) {
+    install.packages('ggplot2')
+  }
+  q=x
   
   smpl=seq(1:NROW(q))
   gr=c()
@@ -31,9 +33,9 @@ str_plot=function (x,samples=NA,order=NA){
   }
   
   ggplot()+geom_bar(aes(y=prob,x=smpl,fill=gr),data=data,stat='identity')+
-      geom_errorbar(width=0)+
-      scale_y_continuous(name='Probability')+
-      scale_x_discrete(name='Samples')+
-      scale_fill_discrete(name='Groups')+
+    geom_errorbar(width=0)+
+    scale_y_continuous(name='Probability')+
+    scale_x_discrete(name='Samples')+
+    scale_fill_discrete(name='Groups')+
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 }
