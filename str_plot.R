@@ -1,7 +1,5 @@
-str_plot=function (x,samples=NA,order=NA){
-  if (!require('ggplot2')) {
-    install.packages('ggplot2')
-  }
+str_plot=function (x,samples=NA,order=NA, colors=NA){
+  library(ggplot2)
   q=x
   
   smpl=seq(1:NROW(q))
@@ -31,11 +29,19 @@ str_plot=function (x,samples=NA,order=NA){
     data=orddata
     data$smpl=factor(data$smpl,level=as.character(unique(data$smpl)))
   }
-  
-  ggplot()+geom_bar(aes(y=prob,x=smpl,fill=gr),data=data,stat='identity')+
-    geom_errorbar(width=0)+
-    scale_y_continuous(name='Probability')+
-    scale_x_discrete(name='Samples')+
-    scale_fill_discrete(name='Groups')+
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  if (is.na(colors)) {
+    ggplot()+geom_bar(aes(y=prob,x=smpl,fill=gr),data=data,stat='identity')+
+      geom_errorbar(width=0)+
+      scale_y_continuous(name='Probability')+
+      scale_x_discrete(name='Samples')+
+      scale_fill_discrete(name='Groups')+
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  } else {
+    ggplot()+geom_bar(aes(y=prob,x=smpl,fill=gr),data=data,stat='identity')+
+      geom_errorbar(width=0)+
+      scale_y_continuous(name='Probability')+
+      scale_x_discrete(name='Samples')+
+      scale_fill_manual(name='Groups', values = )+
+      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  }
 }
