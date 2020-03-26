@@ -1,4 +1,4 @@
-str_plot=function (x,y=NA,order=NA){
+str_plot=function (x,samples=NA,order=NA){
   library(ggplot2)
   q=read.table(x,sep='')
   
@@ -16,8 +16,8 @@ str_plot=function (x,y=NA,order=NA){
   }
   
   data=data.frame(gr,smpl,prob)
-  if (!is.na(y[i])) {
-    data$smpl=rep(as.character(y),NCOL(q))
+  if (!is.na(samples[i])) {
+    data$smpl=rep(as.character(samples),NCOL(q))
   }
   
   orddata=c()
